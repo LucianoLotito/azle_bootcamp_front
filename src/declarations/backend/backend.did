@@ -1,0 +1,22 @@
+type Poll = record {
+  id : nat32;
+  is_open : bool;
+  title : text;
+  creator : principal;
+  participants : vec text;
+  approve : nat32;
+  description : text;
+  approved : bool;
+  decline : nat32;
+};
+type User = record { nickname : text; birth_date : text };
+service : () -> {
+  createPoll : (text, text, principal, nat64) -> (opt Poll);
+  deleteUser : (principal) -> (opt User);
+  getLivePolls : () -> (vec Poll) query;
+  getPoll : (nat32) -> (opt Poll) query;
+  getPolls : () -> (vec Poll) query;
+  getUser : (principal) -> (opt User) query;
+  setUser : (principal, User) -> (opt User);
+  votePoll : (nat32, text, bool) -> (opt Poll);
+}
